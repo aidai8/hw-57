@@ -1,9 +1,16 @@
 import './App.css'
 import Toolbar from "./components/Toolbar/Toolbar.tsx";
 import UserForm from "./components/UserForm/UserForm.tsx";
-import UserItem from "./components/UserItem/UserItem.tsx";
+import {useState} from "react";
+import {User} from "./types";
+import Users from "./components/Users/Users.tsx";
 
 const App = () => {
+    const [users, setUsers] = useState<User[]>([]);
+
+    const addUser = (newUser: User) => {
+        setUsers(prevState => [...prevState, newUser]);
+    };
 
   return (
     <>
@@ -13,10 +20,10 @@ const App = () => {
       <main className="container">
           <div className="row">
               <div className="col-6">
-                  <UserForm/>
+                  <UserForm onSubmitFormToAddUser={addUser}/>
               </div>
               <div className="col-6">
-                  <UserItem/>
+                    <Users users={users}/>
               </div>
           </div>
       </main>
